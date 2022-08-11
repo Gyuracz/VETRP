@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Páciensek</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="./patients.html" th:href="@{/patients/newPatient}" class="actualSubmenu">Új páciens felvitele</a>
+                                <a href="./search.html" th:href="@{/patients}">Páciensek</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Gazdi adatai</p>
+                            <form th:action="@{/patients/ownerProc(id=${id})}" th:object="${owner}" method="post">
+                                <table class="inputTable">
+                                    <tr>
+                                        <td>
+                                            Név:<span class="required">*</span>
+                                            <input class="input" type="text" placeholder="Gazdi neve" th:field="*{name}" required>
+                                        </td>
+                                        <td style="width: 60%;">
+                                            Lakcím:
+                                            <input class="input" type="text" placeholder="Lakcím" th:field="*{address}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Telefonszám:
+                                            <input class="input" type="text" placeholder="Telefonszám" th:field="*{phone}">
+                                        </td>
+                                        <td style="width: 50%;">
+                                            E-mail:
+                                            <input class="input" type="email" placeholder="E-mail" th:field="*{email}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            Megjegyzés:
+                                            <input class="input" type="text" placeholder="Megjegyzés" th:field="*{other}">
+                                        </td>
+                                    </tr>
+                                </table>
+                                <input class="input feltoltes" type="submit" value="Hozzáadás">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Állat adatai</p>
+                            <form th:action="@{/patients/animalProc(id=${id})}" th:object="${animal}" method="post">
+                                <table class="inputTable">
+                                    <tr>
+                                        <td>
+                                            Név:<span class="required">*</span>
+                                            <input class="input" type="text" placeholder="Állat neve" th:field="*{name}" required>
+                                        </td>
+                                        <td>
+                                            Gazdi neve:<span class="required">*</span>
+                                            <select class="input" th:field="*{owner}" required>
+                                                <option th:each="it : ${owners}" th:value="${it.id}" th:text="${it.name}"></option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            Chip:
+                                            <input class="input" type="number" placeholder="Chip szám" th:field="*{chip}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Faj:
+                                            <input class="input" type="text" placeholder="Faj" th:field="*{species}">
+                                        </td>
+                                        <td>
+                                            Fajta:
+                                            <input class="input" style="width: 80%;" type="text" placeholder="Fajta" th:field="*{breed}">
+                                        </td>
+                                        <td>
+                                            Nem:
+                                            <select class="input" th:field="*{gender}">
+                                                <option th:value="'Hím'">Hím</option>
+                                                <option th:value="'Nőstény'">Nőstény</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Ivartalanítva:
+                                            <select class="input" th:field="*{sex}">
+                                                <option th:value="'Igen'">Igen</option>
+                                                <option th:value="'Nem'">Nem</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            Születési dátum:
+                                            <input class="input" style="width: 60%;" type="date" th:field="*{birthday}">
+                                        </td>
+                                        <td>
+                                            Utolsó oltás:
+                                            <input class="input" style="width: 60%;" type="date" th:field="*{lastVaccination}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Utolsó veszettség elleni oltás:
+                                            <input class="input" style="width: 40%;" type="date" th:field="*{lastVaccinationAgainstRabies}">
+                                        </td>
+                                        <td>
+                                            Veszettség elleni oltás lejárata:
+                                            <input class="input" style="width: 15%;" type="number" th:field="*{monthToNextVaccination}"> hónap
+                                        </td>
+                                        <td>
+                                            Szín:
+                                            <input class="input" style="width: 80%;" type="text" placeholder="Szín" th:field="*{color}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Tömeg:
+                                            <input class="input" style="width: 60%;" type="number" step="0.01" placeholder="Tömeg" th:field="*{weight}">kg
+                                        </td>
+                                        <td>
+                                            Allergia:
+                                            <input class="input" type="text" placeholder="Allergia" th:field="*{allergy}">
+                                        </td>
+                                        <td>
+                                            Útlevélszám:
+                                            <input class="input" type="text" placeholder="Útlevélszám" th:field="*{passport}">
+                                        </td>
+                                    </tr>
+                                </table>
+                                Megjegyzés:
+                                <input class="input" style="width: 90%;" type="text" placeholder="Megjegyzés" th:field="*{other}"><br>
+                                <input class="input feltoltes" type="submit" value="Hozzáadás">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

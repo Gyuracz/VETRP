@@ -1,0 +1,293 @@
+@menuHover: rgb(190, 190, 190);
+@feliratkozasHover: rgb(61, 61, 248);
+@deleteHover: rgb(255, 55, 55);
+@tovabbGomb: rgb(129, 130, 131);
+@tovabbHover: rgb(169, 172, 173);
+@gombPadding: 3pt 15pt;
+@inputPadding: 3pt 10pt;
+@searchPadding: 3pt 0;
+@gombMargin: 5pt;
+@borderRadius: 10pt;
+@footerColor: rgb(121, 121, 121);
+@backgroundColor: rgb(233, 233, 233);
+@animalHeight: 360pt;
+@multipleSelectedColor: rgb(0, 200, 0);
+
+
+*{
+    background-color: @backgroundColor;
+}
+
+body{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+header{
+    
+    background-color: white;
+    *{
+        background-color: white;
+    }
+}
+
+.gomb(){
+    padding: @gombPadding;
+    margin: @gombMargin;
+    border-radius: @borderRadius;
+    border-style: none;
+}
+
+.menu{
+    text-align: right;
+    vertical-align: middle;
+    padding: 10pt;
+    a{
+        .gomb();
+        text-decoration: none;
+        color: black;
+        margin: 0 3pt;
+        font-size: larger;
+    }
+    a:hover{
+        background-color: @menuHover;
+        color: black;
+    }
+}
+
+.submenu{
+    text-align: right;
+    padding: 10pt;
+    font-size: 10pt;
+    a{
+        .gomb();
+        text-decoration: none;
+        color: black;
+        margin: 0 3pt;
+        font-size: larger;
+    }
+    a:hover{
+        background-color: @menuHover;
+        color: black;
+    }
+    .actualSubmenu{
+        color: blue;
+        border-bottom: 1pt solid blue;
+        border-radius: 0;
+    }
+}
+
+.logo{
+    text-align: center;
+    font-size: 20pt;
+    vertical-align: middle;
+    padding: 10pt;
+}
+
+.sublogo{
+    text-align: center;
+    font-size: 18pt;
+    padding: 10pt;
+}
+
+.box{
+    padding: 5pt;
+    margin: 30pt 0;
+    text-align: center;
+    border-radius: @borderRadius;
+    background-color: white;
+    box-shadow: 5pt 5pt 3pt #bbbbbb;
+    img{
+        border-style: none;
+        height: 150pt;
+        margin: 20pt 0;
+    }
+    *{
+        background-color: white;
+    }
+}
+
+.animalData{
+    height: @animalHeight;
+}
+.history{
+    height: @animalHeight;
+    overflow-y: scroll;
+}
+
+table a{
+    text-decoration: none;
+}
+
+.lablec, .lablec span{
+    background-color: @footerColor;
+    color: white;
+    text-align: center;
+    padding: 15pt 0;
+    margin-top: auto;
+}
+
+form{
+    padding: 5pt;
+    .name{
+        width: 25%;
+    }
+    .packaging{
+        width: 10%;
+    }
+    .ingredient{
+        width: 10%;
+    }
+    .pricePerKg{
+        width: 8%;
+    }
+    .pricePerPackaging{
+        width: 8%;
+    }
+    .quantity{
+        width: 8%;
+    }
+    .state{
+        width: 8%;
+    }
+}
+
+.input{
+    border-radius: @borderRadius;
+    border: 1pt solid @menuHover;
+    padding: @inputPadding;
+    margin: @gombMargin;
+}
+
+input:focus, .input:focus{
+    border: 1pt solid blue;
+    outline: none;
+}
+
+.feltoltes{
+    .gomb();
+    color: white;
+    background-color: blue;
+    text-decoration: none;
+}
+
+.feltoltes:hover{
+    background-color: @feliratkozasHover;
+    color: white;
+}
+
+
+.deleteButton{
+    .gomb();
+    color: white;
+    background-color: red;
+    text-decoration: none;
+}
+
+.deleteButton:hover{
+    background-color: @deleteHover;
+    color: white; 
+}
+
+.box .dataTable{
+    width: 100%;
+    padding: 10pt 30pt;
+    tr{
+        border-bottom: .5pt solid @tovabbGomb;
+        .name{
+            width: 25%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .packaging{
+            width: 10%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .ingredient{
+            width: 10%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .pricePerKg{
+            width: 8%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .pricePerPackaging{
+            width: 8%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .quantity{
+            width: 8%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .state{
+            width: 8%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .date{
+            width: min-content;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .modify{
+            width: 5%;
+            border-right: 0.5pt solid @menuHover;
+        }
+        .delete{
+            width: 5%;
+        }
+        a{
+            color: black;
+        }
+    }
+}
+
+.inputTable{
+    border-style: none;
+    width: 100%;
+    text-align: center;
+    .input{
+        width: 70%;
+    }
+}
+
+button{
+    border-style: none;
+    background-color: transparent;
+}
+
+.searchbar{
+    text-align: right;
+    white-space: nowrap;
+    #icon{
+        background-color: transparent;
+        font-size: 14pt;
+        padding: @searchPadding;
+    }
+}
+
+.leftbar{
+    text-align: left;
+    white-space: nowrap;
+}
+
+.required{
+    color: red;
+}
+
+// select[multiple] option:checked{
+//     background: @multipleSelectedColor linear-gradient(0deg, @multipleSelectedColor 0%, @multipleSelectedColor 100%);
+//     border-radius: @borderRadius;
+//     padding-left: 10pt;
+//     color: white;
+// }
+
+.treatmentBox{
+    max-height: 150pt;
+    overflow-y: scroll;
+    border-radius: @borderRadius;
+    border: 1pt solid @menuHover;
+}
+
+textarea, .textarea{
+    white-space: pre-wrap;
+    overflow: auto;
+}

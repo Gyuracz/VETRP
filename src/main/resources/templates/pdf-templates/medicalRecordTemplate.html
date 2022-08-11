@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Kórlap</title>
+    </head>
+    <body>
+        <h2 style="text-align: center;">Táltos Állatorvosi Rendelo</h2>
+        <header style="text-align: center;">
+            <table style="border: none; border-bottom: 0.5pt solid black; width: 100%;">
+                <tr>
+                    <th style="width: 40%;" th:text="${treatment.doctor}"></th>
+                    <th style="width: 60%;">BIO-CZINOV Kft</th>
+                </tr>
+                <tr style="margin-bottom: 5%;">
+                    <td>Állatorvos</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Tel.: 06-30/957-1383</td>
+                    <td>9200 Mosonmagyaróvár, Várallyay György u. 31.</td>
+                </tr>
+                <tr>
+                    <td>E-mail: czimbivet@gmail.com</td>
+                    <td>Bankszámlaszám: 10300002-10572296-49020010</td>
+                </tr>
+            </table>
+        </header>
+        <section style="margin-top: 10%;">
+            <h3 style="text-align: center;">Kórlap</h3>
+            <table style="border: none; border-bottom: 0.5pt solid black; width: 100%; padding-bottom: 3%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
+                <tr>
+                    <td style="width: 50%; vertical-align: top; border-right: 0.5pt solid black; padding-left: 85px;">
+                        <strong>Állat adatai:</strong><br />
+                        Név: <span th:text="${animal.name}"></span><br />
+                        Faj: <span th:text="${animal.species}"></span><br />
+                        Fajta: <span th:text="${animal.breed}"></span><br />
+                        Szín: <span th:text="${animal.color}"></span><br />
+                        Nem: <span th:if="${animal.gender == 'Nőstény'}">Nostény</span><span th:if="${animal.gender == 'Hím'}">Hím</span><br />
+                        Chip: <span th:text="${animal.chip}"></span>
+                    </td>
+                    <td style="width: 50%; vertical-align: top; padding-left: 75px;">
+                        <strong>Tulajdonos adatai:</strong><br />
+                        Név: <span th:text="${owner.name}"></span><br />
+                        Cím: <span th:text="${owner.address}"></span><br />
+                        Tel.: <span th:text="${owner.phone}"></span>
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-bottom: 5%;">
+                <strong>Kórelozmény:</strong><br />
+                <span class="textarea" th:text="${treatment.historyField}" style="white-space: pre-wrap;"></span>
+            </div>
+            <div style="margin-bottom: 5%;">
+                <strong>Jelen állapot:</strong><br />
+                <span class="textarea" th:text="${treatment.presentField}" style="white-space: pre-wrap;"></span>
+            </div>
+            <div style="margin-bottom: 5%;">
+                <strong>Kezelés:</strong><br />
+                <span class="textarea" th:text="${treatment.treatmentField}" style="white-space: pre-wrap;"></span>
+            </div>
+        </section>
+        <footer>
+            <div style="margin-bottom: 3%;">Mosonmagyaróvár, <span th:text="${#dates.format(#dates.createNow(), 'yyyy. MM. dd.')}"></span><br /></div>
+            <div style="text-align: right; margin-bottom: 5%;" th:text="${treatment.doctor}"></div>
+        </footer>
+    </body>
+</html>

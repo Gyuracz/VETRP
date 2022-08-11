@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{~/css/style.css}">
+        <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{~/css/bootstrap.css}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 logo">
+                            <span style="color: red;">Táltos</span> <span>Állatorvosi Rendelő</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <h2>Bejelentkezés</h2>
+                            <form th:action="@{/login}" action="login" method="post">
+                                <div id="err" th:if="${param.error}" class="alert alert-danger">Hibás felhasználónév vagy jelszó!</div>
+                                <div th:if="${param.logout}" class="alert alert-success">Sikeres kijelentkezés!</div>
+                                <input type="text" class="input" id="username" name="username" placeholder="Felhasználónév" required><br>
+                                <input type="password" class="input" id="password" name="password" placeholder="Jelszó" required><br>
+                                <input id="remember-me" name="remember-me" type="checkbox"> Emlékezz rám <br>
+                                <input type="submit" class="input feltoltes" value="Bejelentkezés">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer style="position: absolute; bottom: 0; width: 100%;">
+            <div class="container-fluid lablec">
+                Copyright @ VETRP <span id="datum"></span>
+                <br>
+                Táltos Állatorvosi Rendelő, Mosonmagyaróvár
+                <br>
+                Készítette: Gyurácz Olivér
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById("datum").innerHTML = new Date().getFullYear();
+        </script>
+    </body>
+</html>

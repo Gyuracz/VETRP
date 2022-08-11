@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <h3>Üdvözlünk a VETRP szoftverben!</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Rendelő adatai</p>
+                            <strong>Név: </strong><span>Táltos Állatorvosi Rendelő</span><br>
+                            <strong>Cím: </strong><span>9200 Mosonmagyaróvár, Várallyay György u. 31.</span><br>
+                            <strong>Telefonszám: </strong><span>06-30/957-1383</span><br>
+                            <strong>Bankszámlaszám: </strong><span>10300002-10572296-49020010</span><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Alkalmazottak</p>
+                            <form th:action="@{/employee/employeeProc(id=${id})}" th:object="${employee}" method="post">
+                                Név:
+                                <input class="input name" type="text" placeholder="Név" th:field="*{name}" required>
+                                Beosztás:
+                                <select class="input" th:field="*{post}">
+                                    <option th:value="'Doktor'">Doktor</option>
+                                    <option th:value="'Asszisztens'">Asszisztens</option>
+                                    <option th:value="'Takarító'">Takarító</option>
+                                </select>
+                                Telefonszám:
+                                <input class="input" type="text" placeholder="Telefonszám" th:field="*{phone}">
+                                <br>
+                                E-mail:
+                                <input class="input name" type="email" placeholder="E-mail" th:field="*{email}">
+                                <input class="input feltoltes" type="submit" value="Hozzáadás">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="pricePerKg">Beosztás</th>
+                                    <th class="quantity">Telefonszám</th>
+                                    <th class="state">Email</th>
+                                    <th class="modify">Módosítás</th>
+                                    <th class="delete">Törlés</th>
+                                </tr>
+                                <tr th:each="it: ${employees}">
+                                    <td th:text="${it.name}"></td>
+                                    <td th:text="${it.post}"></td>
+                                    <td th:text="${it.phone}"></td>
+                                    <td th:text="${it.email}"></td>
+                                    <td><a th:href="@{/employee/updateEmployee(id=${it.id})}"><i class="fa fa-pencil"></i></a></td>
+                                    <td><a th:href="@{/employee/deleteEmployee(id=${it.id})}"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Jelszó módosítás</p>
+                            <form th:action="@{/user/userProc(oldPsw=${oldPsw},newPsw1=${newPsw1},newPsw2=${newPsw2})}" method="post">
+                                Régi jelszó: <input class="input" type="password" th:value="${oldPsw}"><br>
+                                Új jelszó: <input class="input" type="password" th:value="${$newPsw1}"><br>
+                                Új jelszó megerősítése: <input class="input" type="password" th:value="${newPsw2}"><br>
+                                <input class="input feltoltes" type="submit" value="Mentés">
+                            </form>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Új kezelés típus felvitele</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="../patients/search.html" th:href="@{/patients}">Kezelések</a>
+                                <a href="./treatmentType.html" th:href="@{/treatments/treatmentType}" class="actualSubmenu">Kezelés beállítások</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <form class="searchbar" th:action="@{/treatments/treatmentType}">
+                            <input type="search" class="input" placeholder="Keresés" th:value="${search}" th:name="name">
+                            <button type="submit" class="input feltoltes"><i class="fa fa-search" id="icon"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <form th:action="@{/treatments/treatmentTypeProc(id=${id})}" th:object="${treatmentType}" method="post">
+                                Név:<span class="required">*</span>
+                                <input class="input name" type="text" placeholder="Név" th:field="*{name}" required>
+                                Ár:
+                                <input class="input packaging" type="number" placeholder="Ár" th:field="*{price}">
+                                <input class="input feltoltes" type="submit" value="Hozzáadás">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="pricePerKg">Ár</th>
+                                    <th class="modify">Módosítás</th>
+                                    <th class="delete">Törlés</th>
+                                </tr>
+                                <tr th:each="it : ${treatmentTypes}">
+                                    <td th:text="${it.name}"></td>
+                                    <td th:text="${it.price} + Ft"></td>
+                                    <td><a th:href="@{/treatments/updateTreatmentType(id=${it.id})}"><i class="fa fa-pencil"></i></a></td>
+                                    <td><a th:href="@{/treatments/deleteTreatmentType(id=${it.id})}"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

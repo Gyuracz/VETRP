@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{~/css/style.css}" />
+        <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{~/css/bootstrap.css}" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+        <title>E-Kórlap</title>
+        <style>
+            *{
+                color: black;
+            }
+            .logo {
+                text-align: center;
+                font-size: 20pt;
+                vertical-align: middle;
+                padding: 10pt;
+            }
+            .box {
+                padding: 5pt;
+                margin: 30pt 0;
+                text-align: center;
+                border-radius: 10pt;
+                background-color: white;
+                box-shadow: 5pt 5pt 3pt #bbbbbb;
+            }
+            .box * {
+                background-color: white;
+            }
+            .lablec, .lablec span {
+                background-color: #797979;
+                color: white;
+                text-align: center;
+                padding: 15pt 0;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-md-4 logo">
+                            <span style="color: red;">Táltos</span> <span style="color: black;">Állatorvosi Rendelő</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <section>
+            <div class="row">
+                <div class="col-12">
+                    <div>
+                        <div class="greeting">
+                            Kedves <span th:text="${owner.name}"></span>! <br><br>
+                            Köszönjük, hogy rendelőnket választotta! Az elektronikus kórlapot e levelünkben megtalálja. <br><br>
+                        </div>
+                        <h3 style="text-align: center; font-size: 16pt;">E-Kórlap</h3>
+                        <table style="border: none; border-bottom: 0.5pt solid black; width: 100%; padding-bottom: 3%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; border-right: 0.5pt solid black; padding-left: 85px;">
+                                    <strong>Állat adatai:</strong><br />
+                                    Név: <span th:text="${animal.name}"></span><br />
+                                    Faj: <span th:text="${animal.species}"></span><br />
+                                    Fajta: <span th:text="${animal.breed}"></span><br />
+                                    Szín: <span th:text="${animal.color}"></span><br />
+                                    Nem: <span th:if="${animal.gender == 'Nőstény'}">Nostény</span><span th:if="${animal.gender == 'Hím'}">Hím</span><br />
+                                    Chip: <span th:text="${animal.chip}"></span>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; padding-left: 75px;">
+                                    <strong>Tulajdonos adatai:</strong><br />
+                                    Név: <span th:text="${owner.name}"></span><br />
+                                    Cím: <span th:text="${owner.address}"></span><br />
+                                    Tel.: <span th:text="${owner.phone}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div style="margin-bottom: 3%;">
+                            <strong>Kórelőzmény:</strong><br />
+                            <span class="textarea" th:text="${treatment.historyField}" style="white-space: pre-wrap;"></span>
+                        </div>
+                        <div style="margin-bottom: 3%;">
+                            <strong>Jelen állapot:</strong><br />
+                            <span class="textarea" th:text="${treatment.presentField}" style="white-space: pre-wrap;"></span>
+                        </div>
+                        <div style="margin-bottom: 3%;">
+                            <strong>Kezelés:</strong><br />
+                            <span class="textarea" th:text="${treatment.treatmentField}" style="white-space: pre-wrap;"></span>
+                        </div>
+                        <div style="margin-bottom: 3%;">Mosonmagyaróvár, <span th:text="${#dates.format(#dates.createNow(), 'yyyy. MM. dd.')}"></span><br /></div>
+                        <div style="text-align: right; margin-bottom: 5%;" th:text="${treatment.doctor}"></div>
+                        <div><small>Ez egy automatikusan generált üzenet, kérem ne válaszoljon rá!</small></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Új kezelés felvitele</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="../patients/datasheet.html" th:href="@{/treatments/choose(id=${animal.id})}" class="actualSubmenu">Vissza</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;" th:text="${animal.name}"></p>
+                            <form th:action="@{/treatments/treatment/treatmentProc(id=${id},animalId=${animal.id})}" method="post" th:object="${treatment}">
+                                Kezelés típusa<span class="required">*</span>:
+                                <select class="input name" th:field="*{treatmentType}" required>
+                                    <option th:each="it : ${treatmentTypes}" th:value="${it.id}" th:text="${it.name}"></option>
+                                </select>
+                                <table class="inputTable" style="width: 75%; margin-left: auto; margin-right: auto;">
+                                    <tr>
+                                        <td style="vertical-align: middle; text-align: right;">
+                                            Gyógyszerek:
+                                        </td>
+                                        <td style="vertical-align: middle; width: 35%; text-align: left;">
+                                            <div class="treatmentBox">
+                                                <table>
+                                                    <tr th:each="it : ${medicines}">
+                                                        <td>
+                                                            <input class="input" type="checkbox" th:field="*{medicines}" th:value="${it.id}">
+                                                        </td>
+                                                        <td style="width: 90%;">
+                                                            <span th:text="${it.name}"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                        <td style="vertical-align: middle; text-align: right;">
+                                            Műtéti eszközök:
+                                        </td>
+                                        <td style="vertical-align: middle; width: 35%; text-align: left;">
+                                            <div class="treatmentBox">
+                                                <table>
+                                                    <tr th:each="it : ${surgicals}">
+                                                        <td>
+                                                            <input class="input" type="checkbox" th:field="*{surgicals}" th:value="${it.id}">
+                                                        </td>
+                                                        <td style="width: 90%;">
+                                                            <span th:text="${it.name}"></span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                Kórelőzmény: <br>
+                                <textarea class="input" cols="100" rows="8" th:field="*{historyField}"></textarea><br>
+                                Jelen állapot: <br>
+                                <textarea class="input" cols="100" rows="8" th:field="*{presentField}"></textarea><br>
+                                Kezelés: <br>
+                                <textarea class="input" cols="100" rows="8" th:field="*{treatmentField}"></textarea><br>
+                                Aláírás<span class="required">*</span>:
+                                <select class="input" th:field="*{doctor}" required>
+                                    <option class="input" th:each="it : ${doctors}" th:value="${it.name}" th:text="${it.name}"></option>
+                                </select>
+                                <br><br>
+                                <input class="input feltoltes" type="submit" value="Következő">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

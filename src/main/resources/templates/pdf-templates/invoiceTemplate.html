@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Számla</title>
+    </head>
+    <body>
+        <h2 style="text-align: center;">Számla</h2>
+        <header style="margin-top: 10%;">
+            <table style="border: none; border-bottom: 0.5pt solid black; width: 100%; padding-bottom: 3%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
+                <tr>
+                    <td style="width: 50%; vertical-align: top; border-right: 0.5pt solid black; padding-left: 85px;">
+                        <strong>Szolgáltatást nyújtó adatai:</strong><br /><br />
+                        BIO-CZINOV Kft <br />
+                        9200 Mosonmagyaróvár, Várallyay György u. 31. <br />
+                        <strong>Bankszámlaszám: </strong>10300002-10572296-49020010 <br />
+                        <strong>Adószám: </strong>12345678-9-10 <br />
+                    </td>
+                    <td style="width: 50%; vertical-align: top; padding-left: 75px;">
+                        <strong>Ügyfél adatai:</strong><br /><br />
+                        <span th:text="${owner.name}"></span><br />
+                        <span th:text="${owner.address}"></span><br />
+                        <span th:text="${owner.phone}"></span>
+                    </td>
+                </tr>
+            </table>
+        </header>
+        <section style="margin-top: 10%;">
+            <table style="border: none; border-bottom: 0.5pt solid black; width: 80%; padding-bottom: 3%; margin-bottom: 5%; margin-left: auto; margin-right: auto;">
+                <tr style="border-bottom: 0.5pt solid black;">
+                    <th style="text-align: left;">Megnevezés</th>
+                    <th style="text-align: right; width: 20%;">Bruttó egységár</th>
+                    <th style="text-align: right; width: 20%;">Mennyiség</th>
+                    <th style="text-align: right; width: 20%;">Bruttó ár</th>
+                </tr>
+                <tr style="border-bottom: 0.5pt solid black;" th:each="it : ${invoices}">
+                    <td th:text="${it.materialName}"></td>
+                    <td style="text-align: right;" th:text="${#numbers.formatInteger(it.materialPrice, 1, 'POINT')} + 'Ft'"></td>
+                    <td style="text-align: right;" th:text="${it.quantity} + 'db'"></td>
+                    <td style="text-align: right;" th:text="${#numbers.formatInteger(it.grossPrice, 1, 'POINT')} + 'Ft'"></td>
+                </tr>
+                <tr>
+                    <th>Összesen:</th>
+                    <th colspan="3" style="text-align: right;">
+                        <strong th:text="${#numbers.formatInteger(sumPrice, 1, 'POINT')} + 'Ft'"></strong>
+                    </th>
+                </tr>
+            </table>
+        </section>
+    </body>
+</html>

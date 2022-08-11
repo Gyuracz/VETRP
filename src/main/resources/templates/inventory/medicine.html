@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Gyógyszerek</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="./surgical.html" th:href="@{/inventory/surgical}">Műtéti eszközök</a>
+                                <a href="./medicine.html" th:href="@{/inventory/medicine}" class="actualSubmenu">Gyógyszerek</a>
+                                <a href="./food.html" th:href="@{/inventory/food}">Tápok</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12 col-md-6">
+                        <form class="leftbar" th:action="@{/inventory/medicine/multiplyPrice}">
+                            <input type="number" step="0.01" class="input" placeholder="Árszorzó" th:value="${multiplier}" th:name="multiplier" required>
+                            <input class="input feltoltes" type="submit" value="Ár szorzás">
+                        </form>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <form class="searchbar" th:action="@{/inventory/medicine}">
+                            <input type="search" class="input" placeholder="Keresés" th:value="${search}" th:name="name">
+                            <button class="input feltoltes"><i class="fa fa-search" id="icon"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <form th:action="@{/inventory/medicine/medicineProc(id=${id})}" th:object="${medicine}" method="post">
+                                Név:<span class="required">*</span>
+                                <input class="input name" type="text" placeholder="Példa gyógyszer" th:field="*{name}" required>
+                                Kiszerelés:
+                                <input class="input packaging" type="text" placeholder="Kiszerelés" th:field="*{packaging}">
+                                Hatóanyag:
+                                <input class="input ingredient" type="text" placeholder="Hatóanyag" th:field="*{ingredient}">
+                                Egységár:
+                                <input class="input pricePerKg" type="number" placeholder="Ár" th:field="*{pricePerKg}"><br>
+                                Ár/Kiszerelés: 
+                                <input class="input pricePerPackaging" type="number" placeholder="Ár" th:field="*{pricePerPackaging}">
+                                Darab:
+                                <input class="input quantity" type="number" placeholder="Db" th:field="*{quantity}">
+                                Típus:
+                                <select class="input" th:field="*{state}">
+                                    <option th:value="'Tabletta'">Tabletta</option>
+                                    <option th:value="'Folyadék'">Folyadék</option>
+                                    <option th:value="'Por'">Por</option>
+                                </select>
+                                Készlethiány ennyi darabnál: 
+                                <input class="input quantity" type="number" placeholder="Db" th:field="*{outOfStock}">
+                                <input class="input feltoltes" type="submit" value="Hozzáadás">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="packaging">Kiszerelés</th>
+                                    <th class="ingredient">Hatóanyag</th>
+                                    <th class="pricePerKg">Beszerzési Egységár</th>
+                                    <th class="pricePerKg">Eladási Egységár</th>
+                                    <th class="pricePerPackaging">Beszerzési ár</th>
+                                    <th class="pricePerPackaging">Eladási ár</th>
+                                    <th class="quantity">Db</th>
+                                    <th class="state">Típus</th>
+                                    <th class="modify">Módosítás</th>
+                                    <th class="delete">Törlés</th>
+                                </tr>
+                                <tr th:each="it: ${medicines}">
+                                    <td th:text="${it.name}"></td>
+                                    <td th:text="${it.packaging}"></td>
+                                    <td th:text="${it.ingredient}"></td>
+                                    <td th:text="${it.pricePerKg} + 'Ft'"></td>
+                                    <td th:text="${it.salePricePerKg} + 'Ft'"></td>
+                                    <td th:text="${it.pricePerPackaging} + 'Ft'"></td>
+                                    <td th:text="${it.salePricePerPackaging} + 'Ft'"></td>
+                                    <td th:text="${it.quantity} + db"></td>
+                                    <td th:text="${it.state}"></td>
+                                    <td><a th:href="@{/inventory/medicine/updateMedicine(id=${it.id})}"><i class="fa fa-pencil"></i></a></td>
+                                    <td><a th:href="@{/inventory/medicine/deleteMedicine(id=${it.id})}"><i class="fa fa-trash-o"></i></a></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

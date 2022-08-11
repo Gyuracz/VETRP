@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Készlethiány</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="./surgical.html" th:href="@{/inventory/surgical}">Műtéti eszközök</a>
+                                <a href="./medicine.html" th:href="@{/inventory/medicine}">Gyógyszerek</a>
+                                <a href="./food.html" th:href="@{/inventory/food}">Tápok</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Műtéti eszközök</p>
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="quantity">Db</th>
+                                </tr>
+                                <tr th:each="low : ${surgicals}">
+                                    <td th:text="${low.key}"></td>
+                                    <td th:text="${low.value}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Gyógyszerek</p>
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="quantity">Db</th>
+                                </tr>
+                                <tr th:each="low : ${medicines}">
+                                    <td th:text="${low.key}"></td>
+                                    <td th:text="${low.value}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Tápok</p>
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Név</th>
+                                    <th class="quantity">Db</th>
+                                </tr>
+                                <tr th:each="low : ${foods}">
+                                    <td th:text="${low.key}"></td>
+                                    <td th:text="${low.value}"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">Új kezelés felvitele</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="../patients/datasheet.html" th:href="@{/patients/datasheet(id=${ownerId})}" class="actualSubmenu">Vissza</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;" th:text="${animal.name}"></p>
+                            <form th:action="@{/treatments/treatment(id=${animal.id})}" method="post">
+                                Kórlap típus:
+                                <select class="input name" required name="choosed">
+                                    <option th:value="'STANDARD'">Általános kórlap</option>
+                                    <option th:value="'OTHOLOGY'">Fülészeti kórlap</option>
+                                    <option th:value="'ULTRASOUND'">UH kórlap</option>
+                                    <option th:value="'HEART'">Szív UH kórlap</option>
+                                </select>
+                                <input class="input feltoltes" type="submit" value="Tovább">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

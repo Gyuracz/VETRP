@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../static/css/style.css" th:href="@{~/css/style.css}">
+        <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{~/css/bootstrap.css}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="../../static/js/jQuery.js" th:src="@{~/js/jQuery.js}"></script>
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <header>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 col-lg-3 logo">
+                            <span style="color: red;">Táltos</span> <span>Állatorvosi Rendelő</span>
+                        </div>
+                        <nav class="col-12 col-lg-9 menu">
+                            <form sec:authorize="isAuthenticated()" th:action="@{/logout}" id="frmlogout" method="post" class="form-inline">
+                                <a href="../index.html" th:href="@{/}">Főoldal</a>
+                                <a href="../treatments/treatmentType.html" th:href="@{/treatments/treatmentType}">Kezelések</a>
+                                <a href="../patients/search.html" th:href="@{/patients}">Páciensek</a>
+                                <a href="../inventory/inventory.html" th:href="@{/inventory}">Leltár</a>
+                                <a href="javascript:{}" onclick="document.getElementById('frmlogout').submit(); return false;">Kijelentkezés</a>
+                            </form>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section layout:fragment="mainContent">
+        </section>
+        
+        <footer>
+            <div class="container-fluid lablec">
+                Copyright @ VETRP <span id="datum"></span>
+                <br>
+                Táltos Állatorvosi Rendelő, Mosonmagyaróvár
+                <br>
+                Készítette: Gyurácz Olivér
+            </div>
+        </footer>
+
+        <script>
+            document.getElementById("datum").innerHTML = new Date().getFullYear();
+        </script>
+    </body>
+</html>

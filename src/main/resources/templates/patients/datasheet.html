@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/main}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Táltos Állatorvosi Rendelő</title>
+    </head>
+    <body>
+        <section layout:fragment="mainContent">
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12 col-md-3 sublogo">A páciens adatai</div>
+                            <nav class="col-12 col-md-9 submenu">
+                                <a href="./patients.html" th:href="@{/patients/newPatient}">Új páciens felvitele</a>
+                                <a href="./search.html" th:href="@{/patients}" class="actualSubmenu">Új Keresés</a>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="box">
+                            <p style="font-size: 14pt;">Gazdi adatai</p>
+                            <div th:object="${owner}">
+                                <strong>Név: </strong><span th:text="${owner.name}"></span><br>
+                                <strong>Lakcím: </strong><span th:text="${owner.address}"></span><br>
+                                <strong>Telefonszám: </strong><span th:text="${owner.phone}"></span><br>
+                                <strong>E-mail: </strong><span th:text="${owner.email}"></span><br>
+                                <strong>Megjegyzés: </strong><span th:text="${owner.other}"></span><br><br>
+                                <a class="input feltoltes" th:href="@{/patients/datasheet/updateOwner(id=${owner.id})}">Módosítás</a>
+                                <a class="input deleteButton" th:href="@{/patients/datasheet/deleteOwner(id=${owner.id})}">Törlés</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" th:each="it : ${animals}">
+                    <div class="col-12 col-md-4">
+                        <div class="box animalData">
+                            <p style="font-size: 14pt;">Állat adatai</p>
+                            <div>
+                                <strong>Név: </strong><span th:text="${it.name}"></span><br>
+                                <strong>Chip szám: </strong><span th:text="${it.chip}"></span><br>
+                                <strong>Faj: </strong><span th:text="${it.species}"></span><br>
+                                <strong>Fajta: </strong><span th:text="${it.breed}"></span><br>
+                                <strong>Nem: </strong><span th:text="${it.gender}"></span><br>
+                                <strong>Ivartalanítva: </strong><span th:text="${it.sex}"></span><br>
+                                <strong>Születési dátum: </strong><span th:text="${it.birthday}"></span><br>
+                                <strong>Utolsó oltás: </strong><span th:text="${it.lastVaccination}"></span><br>
+                                <strong>Utolsó veszettség elleni oltás: </strong><span th:text="${it.lastVaccinationAgainstRabies}"></span><br>
+                                <strong>Szín: </strong><span th:text="${it.color}"></span><br>
+                                <strong>Tömeg: </strong><span th:text="${it.weight}"></span><br>
+                                <strong>Allergia: </strong><span th:text="${it.allergy}"></span><br>
+                                <strong>Útlevélszám: </strong><span th:text="${it.passport}"></span><br>
+                                <strong>Megjegyzés: </strong><span th:text="${it.other}"></span><br><br>
+                                <div style="margin-bottom: 10pt;">
+                                    <a class="input feltoltes" th:href="@{/treatments/choose(id=${it.id})}">Kezelés felvitele</a>
+                                    <a class="input feltoltes" th:href="@{/patients/datasheet/updateAnimal(id=${it.id})}">Módosítás</a>
+                                </div>
+                                <a class="input deleteButton" th:href="@{/patients/datasheet/deleteAnimal(id=${it.id})}">Törlés</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="box history">
+                            <p style="font-size: 14pt;">Kórtörténet</p>
+                            <table class="dataTable">
+                                <tr>
+                                    <th class="name">Kezelés</th>
+                                    <th class="date">Gyógyszerek</th>
+                                    <th class="date">Dátum</th>
+                                    <th class="modify">Email</th>
+                                    <th class="modify">Számla</th>
+                                    <th class="modify"></th>
+                                    <th class="delete"></th>
+                                </tr>
+                                <tr th:each="history : ${historys}">
+                                    <div th:if="${it.id} == ${history.animal.id}">
+                                        <td><a th:text="${history.treatmentType.name}" th:href="@{/treatments/treatment/medicalRecord(animalId=${it.id},historyId=${history.id})}" target="_blank"></a></td>
+                                        <td>
+                                            <div th:each="medicine : ${history.medicines}">
+                                                <a th:text="${medicine.name}" th:href="@{/treatments/treatment/medicalRecord(animalId=${it.id},historyId=${history.id})}" target="_blank"></a>
+                                            </div>
+                                        </td>
+                                        <td><a th:text="${#dates.format(history.date, 'yyyy. MM. dd. HH:mm')}" th:href="@{/treatments/treatment/medicalRecord(animalId=${it.id},historyId=${history.id})}" target="_blank"></a></td>
+                                        <td><a th:href="@{/medicalRecordEmail(id=${history.id})}"><i class="fa fa-paper-plane"></i></a></td>
+                                        <td><a th:href="@{/treatments/treatment/showInvoice(animalId=${it.id},historyId=${history.id})}" target="_blank"><i class="fa fa-sticky-note-o"></i></a></td>
+                                        <td><a th:href="@{/treatments/treatment/updateTreatment(id=${history.id})}"><i class="fa fa-pencil"></i></a></td>
+                                        <td><a th:href="@{/treatments/treatment/deleteTreatment(id=${history.id})}"><i class="fa fa-trash-o"></i></a></td>
+                                    </div>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </body>
+</html>

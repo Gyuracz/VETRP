@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Jun 22 17:42:02 CEST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.10.2.0 - (1582446): instance a816c00e-0181-8c13-e05e-0000082e8318 
+on database directory memory:D:\Letöltések\taltosrendelo\23ec67b1-7a84-4e3b-9383-b79829095677 with class loader sun.misc.Launcher$ExtClassLoader@31befd9f 
+Loaded from file:/C:/Program%20Files/Java/jdk1.8.0_181/jre/lib/ext/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=D:\Letöltések\taltosrendelo
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
